@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using System;
 
-public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace RazTools
 {
-    private static T _instance;
-    public static T Instance
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
+        private static T _instance;
+        public static T Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = FindObjectOfType<T>();
                 if (_instance == null)
                 {
-                    var singleton = new GameObject("[SINGLETON] " + typeof(T));
-                    _instance = singleton.AddComponent<T>();
-                    Debug.Log("Создан менеджер");
-                }
-            }
-            return _instance;
+                    _instance = FindObjectOfType<T>();
+                    if (_instance == null)
+                    {
+                        var singleton = new GameObject("[SINGLETON] " + typeof(T));
+                        _instance = singleton.AddComponent<T>();
+                    }
 
+
+                }
+                return _instance;
+            }
         }
+
+        public abstract void Initialise();
     }
 }
