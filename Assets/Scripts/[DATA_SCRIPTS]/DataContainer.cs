@@ -46,11 +46,22 @@ namespace RazTools
                 number = data[typeof(T)];
                 geteddata = dataList[number] as T;
             }
-            if (geteddata==null)
+            if (geteddata == null)
             {
-                geteddata = DataManager.GetData("Defaut").GetData<T>();
-            }
-
+                DataContainer defautData = DataManager.GetData("Defaut");
+                defautData.NormaliseDict();
+                if (defautData.data.ContainsKey(typeof(T)))
+                {
+                    number = defautData.data[typeof(T)];
+                    geteddata = defautData.dataList[number] as T;
+                    Debug.Log("[DataContainer]: для " + Name + " " + typeof(T).ToString() + " установлен Defaut");
+                } 
+                else
+                {
+                    Debug.Log("[DataContainer]: даты с типом " + typeof(T).ToString() + " не удалось найти среди Defaut настроек");
+                }
+            } 
+            
             return geteddata;
         }
 
