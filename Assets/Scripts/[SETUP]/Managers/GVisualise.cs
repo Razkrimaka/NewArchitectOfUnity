@@ -9,11 +9,11 @@ namespace RazTools
         GameObject EntitiesParent;
 
 
-        Dictionary<int, GameObject> Entities = new Dictionary<int, GameObject>();
+        Dictionary<int, Actor> Entities = new Dictionary<int, Actor>();
 
         public void CreateNewEntity (Entity entity)
         {
-            GameObject newEntity;
+            Actor newEntity;
             int ID = entity.GetID();
             if (Entities.TryGetValue(ID, out newEntity))
             {
@@ -21,16 +21,15 @@ namespace RazTools
             } 
             else
             {
-                newEntity = new GameObject("Сущность " + ID);
-                newEntity.transform.SetParent(EntitiesParent.transform);
+                newEntity = new Actor("Сущность " + ID, EntitiesParent, entity);
                 Entities.Add(ID, newEntity);
-                Debug.Log("[GVisualise]: Создал пустую сущность. ID = " + ID);
+                Debug.Log("[GVisualise]: Создал актера. ID = " + ID);
             }
         }
 
         public void DestroyEntity (int ID)
         {
-            GameObject newEntity;
+            Actor newEntity;
             if (Entities.TryGetValue(ID, out newEntity))
             {
                 KillEntity(newEntity);
@@ -50,7 +49,7 @@ namespace RazTools
             EntitiesParent = new GameObject("[Entities]");
         }
 
-        private void KillEntity (GameObject entity)
+        private void KillEntity (Actor entity)
         {
             Debug.Log("Сущности нечего сказать перед смертью");
         }

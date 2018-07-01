@@ -6,9 +6,11 @@ using RazTools;
 public class Monster : Entity, ITick
 {
     int Timer = 0;
-    public Monster()
+
+    public Monster(Vector3 pos)
     {
         AddToManager(this);
+        position = pos;
     }
 
     public void AddToManager(IUpdateble updateble)
