@@ -14,7 +14,10 @@ namespace RazTools
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                GLogic.Instance.CreateEntity(new Monster());
+                for (int i=0; i<1000; i++)
+                {
+                    GLogic.Instance.CreateEntity(new Monster());
+                }
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 GLogic.Instance.DestroyEntity(1);
         }

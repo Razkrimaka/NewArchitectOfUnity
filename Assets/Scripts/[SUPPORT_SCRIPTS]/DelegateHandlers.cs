@@ -7,5 +7,6 @@ namespace RazTools
     {
         public delegate void void_Handler_Int(int INT);
         public delegate void void_Handler_void();
+        public delegate void void_Handler_Entity(Entity entity);
     }
 }

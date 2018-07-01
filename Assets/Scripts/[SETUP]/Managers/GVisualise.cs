@@ -10,9 +10,11 @@ namespace RazTools
 
 
         Dictionary<int, GameObject> Entities = new Dictionary<int, GameObject>();
-        public void CreateNewEntity (int ID )
+
+        public void CreateNewEntity (Entity entity)
         {
             GameObject newEntity;
+            int ID = entity.GetID();
             if (Entities.TryGetValue(ID, out newEntity))
             {
                 Debug.Log("[GVisualise]: Что-то пошло не так. Я пытаюсь создать объект, который уже есть на сцене!");

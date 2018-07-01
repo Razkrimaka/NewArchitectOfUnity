@@ -12,8 +12,6 @@ public abstract class Entity  {
         return id;
     }
 
-
-
     public Entity ()
     {
         id = NumberManager.Instance.GetNumber();       

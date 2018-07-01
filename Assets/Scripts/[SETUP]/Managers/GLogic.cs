@@ -6,14 +6,14 @@ namespace RazTools
 
     public class GLogic : Singleton<GLogic>
     {
-        public event DelegateHandlers.void_Handler_Int CreateEntityEvent;
+        public event DelegateHandlers.void_Handler_Entity CreateEntityEvent;
         public event DelegateHandlers.void_Handler_Int DestroyEntityEvent;
 
 
         public void CreateEntity(Entity entity)
         {
-            Debug.Log("[GLogic]: сообщаю, что Сущность[" + entity.GetID() + "] создана");
-            CreateEntityEvent(entity.GetID());
+            Debug.Log("[GLogic]: сообщаю, что Сущность[" + entity.GetID() + "] создана. Тип: " + entity.GetType());
+            CreateEntityEvent(entity);
         }
             
         public void DestroyEntity (int ID)
