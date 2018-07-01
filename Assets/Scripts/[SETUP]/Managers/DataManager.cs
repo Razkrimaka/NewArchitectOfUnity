@@ -9,20 +9,18 @@ namespace RazTools
 
         public override void Initialise()
         {
-            foreach (DataContainer dc in _dataBank)
-            {
-                dc.NormaliseDict();
-            }
+
         }
 
         public static DataContainer GetData (string name)
         {
             DataContainer dataContainer;
-            for (int i = 0; i< Instance._dataBank.Count; i++)
+            for (int i = 0; i < Instance._dataBank.Count; i++)
             {
                 if (Instance._dataBank[i].Name == name)
                 {
-                    return Instance._dataBank[i];
+                    dataContainer = Instantiate(Instance._dataBank[i]);
+                    return dataContainer;
                 }
             }
             Debug.Log("[DataManager]: не нашёл даты для сущности. Создал defaut");

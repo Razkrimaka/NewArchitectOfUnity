@@ -8,13 +8,26 @@ namespace RazTools
     public class DataContainer : ScriptableObject
     {
         [SerializeField]
+        List<ScriptableObject> _dataList = new List<ScriptableObject>();
+
+        [SerializeField]
         public string Name;
 
         [SerializeField]
         Dictionary<Type, int> data = new Dictionary<Type, int>();
 
-        [SerializeField]
-        List<ScriptableObject> dataList = new List<ScriptableObject>();
+
+        public List<ScriptableObject> dataList
+        {
+            get
+            {
+                return _dataList;
+            }
+            set
+            {
+                _dataList = value;
+            }
+        }
 
         public void NormaliseDict ()
         {
@@ -32,6 +45,10 @@ namespace RazTools
             {
                 number = data[typeof(T)];
                 geteddata = dataList[number] as T;
+            }
+            if (geteddata==null)
+            {
+                geteddata = DataManager.GetData("Defaut").GetData<T>();
             }
 
             return geteddata;

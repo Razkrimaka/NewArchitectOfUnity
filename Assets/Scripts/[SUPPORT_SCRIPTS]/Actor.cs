@@ -11,15 +11,32 @@ namespace RazTools
 
         GameObject ActorsObject;
         DataContainer dataContainer;
+        Entity _entity;
         public Actor (string Name, GameObject group, Entity entity)
         {
+            _entity = entity;
+            LoadData(entity.GetType().ToString());
+
+
+            //Записываемся в менеджере апдейта
             AddToManager(this);
+
+            //Создаемся как Child на сцене в нужной точке
             ActorsObject = new GameObject(Name);
             ActorsObject.transform.SetParent(group.transform);
             ActorsObject.transform.position = entity.position;
 
-            dataContainer = DataManager.GetData(entity.GetType().ToString());
-            Debug.Log("[Actor]: Загружена дата - " + entity.GetType().ToString());
+
+        }
+
+        private void LoadData (string entityName)
+        {
+            //Получаем у дата-менеджера свою дату и настраиваем для нее словарь
+            if (_entity.GetType().ToString() == entityName)
+            {
+                dataContainer = DataManager.GetData(entityName);
+                dataContainer.NormaliseDict();
+            }
         }
 
         public void AddToManager(IUpdateble updateble)
@@ -29,7 +46,7 @@ namespace RazTools
 
         public void Tick()
         {
-            Debug.Log(dataContainer.GetData<MoveData>().speed);
+            Debug.Log("[Actor]: speed = " + dataContainer.GetData<MoveData>().speed);
         }
 
     }
